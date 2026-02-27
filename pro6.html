@@ -1,0 +1,89 @@
+<body>
+
+<h1>🧠 AI Predictive Health Monitor</h1>
+
+<div class="card">
+    <h3>❤️ Heart Rate (bpm)</h3>
+    <input type="number" id="hr" placeholder="Enter HR">
+</div>
+
+<div class="card">
+    <h3>🩸 SpO₂ (%)</h3>
+    <input type="number" id="spo2" placeholder="Enter SpO2">
+</div>
+
+<div class="card">
+    <h3>🌡 Temperature (°C)</h3>
+    <input type="number" step="0.1" id="temp" placeholder="Enter Temp">
+</div>
+
+<div class="card">
+    <h3>🏃 Activity Level (0-10)</h3>
+    <input type="number" id="activity" placeholder="Enter Activity">
+</div>
+
+<h2>⚠ Health Risk Score</h2>
+<div id="riskBar">
+    <div id="riskFill"></div>
+</div>
+
+<h2 id="riskText">Status: Waiting for Input...</h2>
+
+<br><br>
+<button onclick="analyzeHealth()">Analyze Health</button>
+
+<script>
+
+let baseline = {
+    hr: 75,
+    spo2: 98,
+    temp: 36.8,
+    activity: 5
+};
+
+function analyzeHealth(){
+
+    let hr = parseFloat(document.getElementById("hr").value);
+    let spo2 = parseFloat(document.getElementById("spo2").value);
+    let temp = parseFloat(document.getElementById("temp").value);
+    let activity = parseFloat(document.getElementById("activity").value);
+
+    if(isNaN(hr) || isNaN(spo2) || isNaN(temp) || isNaN(activity)){
+        alert("Please enter all values correctly!");
+        return;
+    }
+
+    let hrDeviation = Math.abs(hr - baseline.hr)/baseline.hr;
+    let spo2Deviation = Math.abs(spo2 - baseline.spo2)/baseline.spo2;
+    let tempDeviation = Math.abs(temp - baseline.temp)/baseline.temp;
+    let activityDeviation = Math.abs(activity - baseline.activity)/10;
+
+    let riskScore = (
+        hrDeviation*30 +
+        spo2Deviation*30 +
+        tempDeviation*25 +
+        activityDeviation*15
+    ) * 100;
+
+    riskScore = Math.min(riskScore,100);
+
+    let riskFill = document.getElementById("riskFill");
+    riskFill.style.width = riskScore+"%";
+
+    if(riskScore < 30){
+        riskFill.style.background = "limegreen";
+        document.getElementById("riskText").innerText = "🟢 Stable Condition";
+    }
+    else if(riskScore < 60){
+        riskFill.style.background = "orange";
+        document.getElementById("riskText").innerText = "🟡 Mild Pattern Deviation Detected";
+    }
+    else{
+        riskFill.style.background = "red";
+        document.getElementById("riskText").innerText = "🔴 Early Risk Pattern Detected!";
+    }
+}
+
+</script>
+
+</body>
