@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Health Risk Prediction System</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px black;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 8px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e3c72;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .low { color: green; }
+        .moderate { color: orange; }
+        .high { color: red; }
+    </style>
+</head>
+
+<body>
+
+    <h1>🩺 AI Health Risk Monitoring System</h1>
+
+    <div class="container">
+        <h3>Enter Health Parameters</h3>
+
+        <input type="number" id="heartRate" placeholder="Heart Rate (bpm)">
+        <input type="number" id="temperature" placeholder="Temperature (°F)">
+        <input type="number" id="activity" placeholder="Activity Level (1-10)">
+        <input type="number" id="stress" placeholder="Stress Level (1-10)">
+
+        <br>
+        <button onclick="calculateRisk()">Analyze Risk</button>
+
+        <div class="result" id="output"></div>
+    </div>
+
+<script>
+
+function calculateRisk() {
+
+    let hr = parseFloat(document.getElementById("heartRate").value);
+    let temp = parseFloat(document.getElementById("temperature").value);
+    let activity = parseFloat(document.getElementById("activity").value);
+    let stress = parseFloat(document.getElementById("stress").value);
+
+    if(isNaN(hr) || isNaN(temp) || isNaN(activity) || isNaN(stress)) {
+        alert("Please enter all values!");
+        return;
+    }
+
+    // Normalize values (basic AI simulation logic)
+    let hrScore = (hr - 60) / 60;
+    let tempScore = (temp - 98) / 4;
+    let activityScore = (10 - activity) / 10;
+    let stressScore = stress / 10;
+
+    let risk = (hrScore + tempScore + activityScore + stressScore) / 4;
+
+    if(risk < 0) risk = 0;
+    if(risk > 1) risk = 1;
+
+    risk = risk.toFixed(2);
+
+    let status = "";
+    let className = "";
+
+    if(risk < 0.3) {
+        status = "Low Risk ✅";
+        className = "low";
+    }
+    else if(risk < 0.6) {
+        status = "Moderate Risk ⚠";
+        className = "moderate";
+    }
+    else {
+        status = "High Risk 🚨";
+        className = "high";
+    }
+
+    document.getElementById("output").innerHTML =
+        "Risk Score: " + risk + "<br>Status: " + status;
+
+    document.getElementById("output").className = "result " + className;
+}
+
+</script>
+
+</body>
+</html>
