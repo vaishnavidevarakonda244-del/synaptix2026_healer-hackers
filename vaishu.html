@@ -1,128 +1,208 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>BioSense AI Wearable Dashboard</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #0f172a;
-            color: white;
-            text-align: center;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCare Education Website</title>
 
-        h1 {
-            margin-top: 20px;
-        }
-
-        .card {
-            background: #1e293b;
-            padding: 20px;
-            margin: 15px;
-            border-radius: 10px;
-            display: inline-block;
-            width: 220px;
-        }
-
-        input {
-            width: 80%;
-            padding: 8px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        #risk {
-            font-size: 28px;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .low { background: green; }
-        .medium { background: orange; }
-        .high { background: red; }
-
-        button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            border: none;
-            background: #3b82f6;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>BioSense AI Wearable System</h1>
+<header>
+    <h2>🎓 EduCare</h2>
 
-<div class="card">
-    <h3>Heart Rate (bpm)</h3>
-    <input type="number" id="hrInput" placeholder="Enter Heart Rate">
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <button onclick="openLogin()">Login</button>
+</header>
+
+<!-- Home -->
+<section class="hero" id="home">
+    <h1>Welcome to EduCare</h1>
+    <p>Learn Today, Lead Tomorrow.</p>
+    <a href="#services" class="btn">Explore Services</a>
+</section>
+
+<!-- Services -->
+<section id="services">
+    <h2 class="heading">Our Education Services</h2>
+
+    <div class="services">
+
+        <div class="card">
+            <h3>💻 Online Courses</h3>
+            <p>Learn new skills through online courses.</p>
+            <a href="https://www.coursera.org/"
+               target="_blank" class="btn">Explore Courses</a>
+        </div>
+
+        <div class="card">
+            <h3>👨‍🏫 Personal Tutoring</h3>
+            <p>Find experienced tutors for your subjects.</p>
+            <a href="https://www.superprof.com/"
+               target="_blank" class="btn">Find Tutors</a>
+        </div>
+
+        <div class="card">
+            <h3>📝 Exam Preparation</h3>
+            <p>Prepare for examinations with learning resources.</p>
+            <a href="https://www.khanacademy.org/"
+               target="_blank" class="btn">Start Learning</a>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Career Guidance</h3>
+            <p>Discover career opportunities.</p>
+            <a href="https://www.linkedin.com/"
+               target="_blank" class="btn">Explore Careers</a>
+        </div>
+
+        <div class="card">
+            <h3>📚 Study Materials</h3>
+            <p>Find educational notes and resources.</p>
+            <a href="https://www.studocu.com/"
+               target="_blank" class="btn">Get Materials</a>
+        </div>
+
+        <div class="card">
+            <h3>🚀 Digital Skills</h3>
+            <p>Learn programming and technology.</p>
+            <a href="https://www.freecodecamp.org/"
+               target="_blank" class="btn">Learn Skills</a>
+        </div>
+
+        <!-- Tutor Card -->
+        <div class="card">
+            <h3>👨‍🏫 Mathematics Tutor</h3>
+            <p>Find mathematics tutors online.</p>
+
+            <a href="https://www.superprof.com/"
+               target="_blank" class="btn">Find Tutors</a>
+
+            <button class="like-btn" onclick="likeTutor('math')">
+                ❤️ Like <span id="math-count">0</span>
+            </button>
+        </div>
+
+        <!-- Programming Tutor -->
+        <div class="card">
+            <h3>💻 Programming Tutor</h3>
+            <p>Learn Python, Java and programming.</p>
+
+            <a href="https://www.superprof.com/"
+               target="_blank" class="btn">Find Tutors</a>
+
+            <button class="like-btn" onclick="likeTutor('programming')">
+                ❤️ Like <span id="programming-count">0</span>
+            </button>
+        </div>
+
+        <!-- Video Tutorials -->
+        <div class="card">
+            <h3>🎬 Video Tutorials</h3>
+            <p>Watch educational videos on YouTube.</p>
+
+            <a href="https://www.youtube.com/results?search_query=educational+tutorials"
+               target="_blank" class="btn">Watch Videos</a>
+        </div>
+
+        <!-- Web Development -->
+        <div class="card">
+            <h3>🌐 Web Development</h3>
+            <p>Learn HTML, CSS and JavaScript.</p>
+
+            <a href="https://www.youtube.com/results?search_query=HTML+CSS+JavaScript+tutorial"
+               target="_blank" class="btn">Watch Tutorials</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+    <h2 class="heading">About Us</h2>
+    <p>
+        EduCare is an educational platform that helps students
+        improve their knowledge and skills through online courses,
+        tutoring and educational videos.
+    </p>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+    <h2 class="heading">Contact Us</h2>
+    <p>Email: educare@example.com</p>
+</section>
+
+<!-- Login Popup -->
+<div class="modal" id="authModal">
+    <div class="modal-box">
+        <span class="close" onclick="closeLogin()">×</span>
+
+        <div id="registerForm">
+            <h2>Register</h2>
+
+            <form onsubmit="register(event)">
+                <input type="text" id="regName"
+                       placeholder="Full Name" required>
+
+                <input type="email" id="regEmail"
+                       placeholder="Email" required>
+
+                <input type="password" id="regPassword"
+                       placeholder="Password" minlength="6" required>
+
+                <button type="submit">Create Account</button>
+            </form>
+
+            <p>Already registered?
+                <span onclick="showLogin()">Login</span>
+            </p>
+        </div>
+
+        <div id="loginForm" style="display:none">
+            <h2>Login</h2>
+
+            <form onsubmit="login(event)">
+                <input type="email" id="loginEmail"
+                       placeholder="Email" required>
+
+                <input type="password" id="loginPassword"
+                       placeholder="Password" required>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <p>New user?
+                <span onclick="showRegister()">Register</span>
+            </p>
+        </div>
+
+        <p id="message"></p>
+    </div>
 </div>
 
-<div class="card">
-    <h3>SpO2 (%)</h3>
-    <input type="number" id="spo2Input" placeholder="Enter SpO2">
-</div>
+<!-- Dashboard -->
+<section id="dashboard">
+    <h2>Welcome to EduCare!</h2>
+    <p id="welcomeUser"></p>
+    <button onclick="logout()">Logout</button>
+</section>
 
-<div class="card">
-    <h3>Body Temperature (°C)</h3>
-    <input type="number" step="0.1" id="tempInput" placeholder="Enter Temperature">
-</div>
+<footer>
+    <p>© 2026 EduCare. All Rights Reserved.</p>
+</footer>
 
-<br>
-
-<button onclick="calculateRisk()">Check Health Risk</button>
-
-<div id="risk">Risk: --</div>
-
-<script>
-
-function calculateRisk() {
-
-    let hr = parseInt(document.getElementById("hrInput").value);
-    let spo2 = parseInt(document.getElementById("spo2Input").value);
-    let temp = parseFloat(document.getElementById("tempInput").value);
-
-    if(isNaN(hr) || isNaN(spo2) || isNaN(temp)) {
-        alert("Please enter all values!");
-        return;
-    }
-
-    let riskScore = 0;
-
-    if(hr > 110) riskScore += 2;
-    if(spo2 < 94) riskScore += 2;
-    if(temp > 37.5) riskScore += 1;
-
-    let riskBox = document.getElementById("risk");
-
-    if(riskScore <= 1) {
-        riskBox.innerHTML = "Risk: LOW";
-        riskBox.className = "low";
-    }
-    else if(riskScore == 2) {
-        riskBox.innerHTML = "Risk: MEDIUM";
-        riskBox.className = "medium";
-    }
-    else {
-        riskBox.innerHTML = "Risk: HIGH";
-        riskBox.className = "high";
-    }
-}
-
-</script>
+<!-- Connect JavaScript -->
+<script src="script.js"></script>
 
 </body>
 </html>

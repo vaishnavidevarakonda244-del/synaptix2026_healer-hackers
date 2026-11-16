@@ -1,0 +1,210 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f7ff;
+    color: #222;
+}
+
+header {
+    background: #172554;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+}
+
+nav a:hover {
+    color: yellow;
+}
+
+button, .btn {
+    background: #2563eb;
+    color: white;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover, .btn:hover {
+    background: #172554;
+}
+
+.hero {
+    background: linear-gradient(120deg, #1d4ed8, #7c3aed);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    margin-bottom: 25px;
+}
+
+.heading {
+    text-align: center;
+    color: #172554;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+#services, #about, #contact {
+    padding: 55px 8%;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px #00000012;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card h3 {
+    color: #172554;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.like-btn {
+    background: #ffe4e6;
+    color: #e11d48;
+    margin-top: 15px;
+    border-radius: 20px;
+}
+
+.like-btn:hover {
+    background: #fecdd3;
+}
+
+.about {
+    background: #e8edff;
+    text-align: center;
+    line-height: 1.8;
+}
+
+#contact {
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0009;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    z-index: 100;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+}
+
+.modal-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 9px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.modal-box button {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.modal-box p {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.modal-box span {
+    color: #2563eb;
+    cursor: pointer;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 25px;
+}
+
+#message {
+    color: red;
+}
+
+#dashboard {
+    display: none;
+    background: #dbeafe;
+    text-align: center;
+    padding: 35px;
+}
+
+footer {
+    background: #172554;
+    color: white;
+    text-align: center;
+    padding: 22px;
+}
+
+@media(max-width: 600px) {
+    header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+}
