@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioSense AI Wearable Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f1f5f9;
+      color: #1e293b;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: #0f172a;
+      margin-bottom: 8px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 30px;
+      font-size: 15px;
+    }
+
+    .dashboard-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 24px 20px;
+      border-radius: 12px;
+      width: 220px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+
+    .range-hint {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-size: 15px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      background-color: #ffffff;
+    }
+
+    input.input-error {
+      border-color: #dc2626;
+      background-color: #fef2f2;
+    }
+
+    .error-msg {
+      color: #dc2626;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+
+    button {
+      padding: 12px 28px;
+      margin-top: 30px;
+      border: none;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    #risk {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 25px auto 0;
+      padding: 18px 24px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 340px;
+      background: #e2e8f0;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      transition: all 0.3s ease;
+    }
+
+    .low {
+      background: #dcfce7 !important;
+      color: #166534 !important;
+      border-color: #86efac !important;
+    }
+
+    .medium {
+      background: #fef3c7 !important;
+      color: #92400e !important;
+      border-color: #fcd34d !important;
+    }
+
+    .high {
+      background: #fee2e2 !important;
+      color: #991b1b !important;
+      border-color: #fca5a5 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>BioSense AI Wearable System</h1>
+  <p class="subtitle">Enter patient vital signs below to evaluate health risk</p>
+
+  <div class="dashboard-grid">
+    <!-- Heart Rate Card -->
+    <div class="card">
+      <h3>Heart Rate (bpm)</h3>
+      <span class="range-hint">Normal: 60 – 100 bpm</span>
+      <input type="number" id="hrInput" placeholder="e.g. 75">
+      <div class="error-msg" id="hrError"></div>
+    </div>
+
+    <!-- SpO2 Card -->
+    <div class="card">
+      <h3>SpO2 (%)</h3>
+      <span class="range-hint">Min: 70% | Max: 100%</span>
+      <input type="number" id="spo2Input" min="70" max="100" placeholder="e.g. 98">
+      <div class="error-msg" id="spo2Error"></div>
+    </div>
+
+    <!-- Body Temperature Card -->
+    <div class="card">
+      <h3>Temperature (°F)</h3>
+      <span class="range-hint">Risk if above 100°F</span>
+      <input type="number" step="0.1" id="tempInput" placeholder="e.g. 98.6">
+      <div class="error-msg" id="tempError"></div>
+    </div>
+
+    <!-- Blood Pressure Card -->
+    <div class="card">
+      <h3>Blood Pressure (mmHg)</h3>
+      <span class="range-hint">Min: 80 | Max: 120</span>
+      <input type="number" id="bpInput" min="80" max="120" placeholder="e.g. 110">
+      <div class="error-msg" id="bpError"></div>
+    </div>
+  </div>
+
+  <button onclick="calculateRisk()">Check Health Risk</button>
+  <div id="risk">Risk: --</div>
+
+  <script>
+    function setFieldError(inputEl, errorEl, message) {
+      inputEl.classList.add("input-error");
+      errorEl.textContent = message;
+    }
+
+    function clearFieldError(inputEl, errorEl) {
+      inputEl.classList.remove("input-error");
+      errorEl.textContent = "";
+    }
+
+    function calculateRisk() {
+      const hrInput = document.getElementById("hrInput");
+      const spo2Input = document.getElementById("spo2Input");
+      const tempInput = document.getElementById("tempInput");
+      const bpInput = document.getElementById("bpInput");
+
+      const hrError = document.getElementById("hrError");
+      const spo2Error = document.getElementById("spo2Error");
+      const tempError = document.getElementById("tempError");
+      const bpError = document.getElementById("bpError");
+      const riskBox = document.getElementById("risk");
+
+      const hr = parseFloat(hrInput.value);
+      const spo2 = parseFloat(spo2Input.value);
+      const temp = parseFloat(tempInput.value);
+      const bp = parseFloat(bpInput.value);
+
+      let hasError = false;
+
+      // Validate Heart Rate
+      if (isNaN(hr)) {
+        setFieldError(hrInput, hrError, "Please enter Heart Rate");
+        hasError = true;
+      } else {
+        clearFieldError(hrInput, hrError);
+      }
+
+      // Validate SpO2 (Min 70, Max 100)
+      if (isNaN(spo2)) {
+        setFieldError(spo2Input, spo2Error, "Please enter SpO2");
+        hasError = true;
+      } else if (spo2 < 70 || spo2 > 100) {
+        setFieldError(spo2Input, spo2Error, "SpO2 must be 70% – 100%");
+        hasError = true;
+      } else {
+        clearFieldError(spo2Input, spo2Error);
+      }
+
+      // Validate Temperature
+      if (isNaN(temp)) {
+        setFieldError(tempInput, tempError, "Please enter Temperature");
+        hasError = true;
+      } else {
+        clearFieldError(tempInput, tempError);
+      }
+
+      // Validate Blood Pressure (Min 80, Max 120)
+      if (isNaN(bp)) {
+        setFieldError(bpInput, bpError, "Please enter Blood Pressure");
+        hasError = true;
+      } else if (bp < 80 || bp > 120) {
+        setFieldError(bpInput, bpError, "BP must be 80 – 120");
+        hasError = true;
+      } else {
+        clearFieldError(bpInput, bpError);
+      }
+
+      // Stop if any field is missing or invalid
+      if (hasError) {
+        riskBox.textContent = "Risk: Fix highlighted fields";
+        riskBox.className = "";
+        return;
+      }
+
+      // Risk Scoring Calculation
+      let riskScore = 0;
+
+      if (hr > 110 || hr < 50) riskScore += 2;
+      if (spo2 < 94) riskScore += 2;
+      if (temp > 100) riskScore += 2;
+      if (bp < 90 || bp > 118) riskScore += 1;
+
+      if (riskScore <= 1) {
+        riskBox.textContent = "Risk: LOW";
+        riskBox.className = "low";
+      } else if (riskScore === 2) {
+        riskBox.textContent = "Risk: MEDIUM";
+        riskBox.className = "medium";
+      } else {
+        riskBox.textContent = "Risk: HIGH";
+        riskBox.className = "high";
+      }
+    }
+  </script>
+
+</body>
+</html>
