@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduCare - Education Platform</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f7ff;
+    color: #222;
+}
+
+header {
+    background: #172554;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    color: #facc15;
+}
+
+.login-btn {
+    background: #facc15;
+    color: #172554;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hero {
+    min-height: 390px;
+    padding: 90px 8%;
+    text-align: center;
+    color: white;
+    background: linear-gradient(120deg, #1d4ed8, #7c3aed);
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.hero a {
+    display: inline-block;
+    padding: 13px 25px;
+    background: #facc15;
+    color: #172554;
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+section {
+    padding: 55px 8%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #172554;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    padding: 28px 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px #00000012;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+}
+
+.card .emoji {
+    font-size: 45px;
+}
+
+.card h3 {
+    margin: 15px 0;
+    color: #172554;
+}
+
+.card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.service-btn {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.service-btn:hover {
+    background: #172554;
+}
+
+.about {
+    background: #e8edff;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.about p {
+    max-width: 750px;
+    margin: auto;
+}
+
+.contact {
+    text-align: center;
+}
+
+.contact a {
+    color: #2563eb;
+}
+
+footer {
+    background: #172554;
+    color: white;
+    text-align: center;
+    padding: 22px;
+}
+
+/* Login and registration popup */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #0009;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    z-index: 100;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 390px;
+    position: relative;
+}
+
+.modal-box h2 {
+    text-align: center;
+    color: #172554;
+    margin-bottom: 20px;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 9px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.modal-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.close {
+    position: absolute;
+    right: 17px;
+    top: 12px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.switch {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.switch span {
+    color: #2563eb;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#dashboard {
+    display: none;
+    text-align: center;
+    background: #dbeafe;
+    padding: 35px 15px;
+}
+
+#dashboard button {
+    padding: 10px 20px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+#message {
+    text-align: center;
+    margin-top: 10px;
+    color: #dc2626;
+    font-size: 14px;
+}
+
+@media(max-width: 600px) {
+    header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    nav {
+        line-height: 2.2;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎓 EduCare</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="login-btn" onclick="openLogin()">
+        Login / Register
+    </button>
+</header>
+
+<div class="hero" id="home">
+    <h1>Welcome to EduCare</h1>
+    <p>Learn Today, Lead Tomorrow.</p>
+    <p>Discover courses, improve your skills and build your future.</p>
+    <a href="#services">Explore Services</a>
+</div>
+
+<!-- Dashboard -->
+
+<div id="dashboard">
+    <h2>Welcome to EduCare!</h2>
+    <p id="welcomeUser"></p>
+    <p>You are successfully logged in.</p>
+    <button onclick="logout()">Logout</button>
+</div>
+
+<!-- Services -->
+
+<section id="services">
+    <h2 class="section-title">Our Education Services</h2>
+
+    <div class="services">
+
+        <div class="card">
+            <div class="emoji">💻</div>
+            <h3>Online Courses</h3>
+            <p>Learn new subjects and skills through online courses.</p>
+            <a class="service-btn" href="https://www.coursera.org/" target="_blank" rel="noopener">Explore Courses</a>
+        </div>
+
+        <div class="card">
+            <div class="emoji">👨‍🏫</div>
+            <h3>Personal Tutoring</h3>
+            <p>Find tutors and improve your academic knowledge.</p>
+            <a class="service-btn" href="https://www.superprof.com/" target="_blank" rel="noopener">Find Tutors</a>
+        </div>
+
+        <div class="card">
+            <div class="emoji">📝</div>
+            <h3>Exam Preparation</h3>
+            <p>Prepare for examinations with useful learning resources.</p>
+            <a class="service-btn" href="https://www.khanacademy.org/" target="_blank" rel="noopener">Start Learning</a>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🎯</div>
+            <h3>Career Guidance</h3>
+            <p>Explore career opportunities and professional development.</p>
+            <a class="service-btn" href="https://www.linkedin.com/" target="_blank" rel="noopener">Explore Careers</a>
+        </div>
+
+        <div class="card">
+            <div class="emoji">📚</div>
+            <h3>Study Materials</h3>
+            <p>Access study resources and educational materials.</p>
+            <a class="service-btn" href="https://www.studocu.com/" target="_blank" rel="noopener">Get Materials</a>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🚀</div>
+            <h3>Digital Skills</h3>
+            <p>Learn programming, web development and technology.</p>
+            <a class="service-btn" href="https://www.freecodecamp.org/" target="_blank" rel="noopener">Learn Skills</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- About -->
+
+<section class="about" id="about">
+    <h2 class="section-title">About EduCare</h2>
+    <p>
+        EduCare is an educational platform designed to help students
+        improve their knowledge and skills. Our goal is to make learning
+        simple, accessible and useful for everyone.
+    </p>
+</section>
+
+<!-- Contact -->
+
+<section class="contact" id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <p>Have questions? We are happy to help!</p>
+    <p>Email: <a href="mailto:educare@example.com">educare@example.com</a></p>
+</section>
+
+<footer>
+    <p>© 2026 EduCare Education Platform. All Rights Reserved.</p>
+</footer>
+
+<!-- Login / Register Modal -->
+
+<div class="modal" id="authModal">
+    <div class="modal-box">
+        <span class="close" onclick="closeLogin()">&times;</span>
+
+        <div id="registerForm">
+            <h2>Create Account</h2>
+
+            <form onsubmit="register(event)">
+                <input type="text" id="regName" placeholder="Full Name" required>
+                <input type="email" id="regEmail" placeholder="Email Address" required>
+                <input type="password" id="regPassword" placeholder="Create Password" minlength="6" required>
+                <button type="submit">Register</button>
+            </form>
+
+            <div class="switch">
+                Already have an account?
+                <span onclick="showLogin()">Login</span>
+            </div>
+        </div>
+
+        <div id="loginForm" style="display:none">
+            <h2>Login</h2>
+
+            <form onsubmit="login(event)">
+                <input type="email" id="loginEmail" placeholder="Email Address" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+
+            <div class="switch">
+                Don't have an account?
+                <span onclick="showRegister()">Register</span>
+            </div>
+        </div>
+
+        <p id="message"></p>
+    </div>
+</div>
+
+<script>
+
+// Open popup
+function openLogin() {
+    document.getElementById("authModal").style.display = "flex";
+    showLogin();
+}
+
+// Close popup
+function closeLogin() {
+    document.getElementById("authModal").style.display = "none";
+}
+
+// Show register
+function showRegister() {
+    document.getElementById("registerForm").style.display = "block";
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("message").textContent = "";
+}
+
+// Show login
+function showLogin() {
+    document.getElementById("registerForm").style.display = "none";
+    document.getElementById("loginForm").style.display = "block";
+    document.getElementById("message").textContent = "";
+}
+
+// Register
+function register(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("regName").value.trim();
+    const email = document.getElementById("regEmail").value.trim().toLowerCase();
+    const password = document.getElementById("regPassword").value;
+
+    const users = JSON.parse(localStorage.getItem("educareUsers") || "{}");
+
+    if (users[email]) {
+        document.getElementById("message").textContent =
+            "This email is already registered. Please login.";
+        return;
+    }
+
+    users[email] = {
+        name: name,
+        password: password
+    };
+
+    localStorage.setItem("educareUsers", JSON.stringify(users));
+
+    alert("Registration successful! Please login.");
+    event.target.reset();
+    showLogin();
+}
+
+// Login
+function login(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const password = document.getElementById("loginPassword").value;
+
+    const users = JSON.parse(localStorage.getItem("educareUsers") || "{}");
+    const user = users[email];
+
+    if (user && user.password === password) {
+        localStorage.setItem("educareCurrentUser", email);
+
+        document.getElementById("welcomeUser").textContent =
+            "Hello, " + user.name;
+
+        document.getElementById("dashboard").style.display = "block";
+        closeLogin();
+
+        document.getElementById("loginEmail").value = "";
+        document.getElementById("loginPassword").value = "";
+
+        window.location.hash = "dashboard";
+
+    } else {
+        document.getElementById("message").textContent =
+            "Invalid email or password. Please try again.";
+    }
+}
+
+// Logout
+function logout() {
+    localStorage.removeItem("educareCurrentUser");
+    document.getElementById("dashboard").style.display = "none";
+    alert("You have logged out successfully.");
+}
+
+// Restore login on page refresh
+window.addEventListener("DOMContentLoaded", function() {
+    const email = localStorage.getItem("educareCurrentUser");
+    const users = JSON.parse(localStorage.getItem("educareUsers") || "{}");
+
+    if (email && users[email]) {
+        document.getElementById("welcomeUser").textContent =
+            "Hello, " + users[email].name;
+
+        document.getElementById("dashboard").style.display = "block";
+    }
+});
+
+// Close popup by clicking outside
+document.getElementById("authModal").addEventListener("click", function(event) {
+    if (event.target === this) {
+        closeLogin();
+    }
+});
+
+</script>
+
+</body>
+</html>
